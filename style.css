@@ -1,0 +1,218 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  /*Comando para arredondamento de fontes com o prefixo -webkit- e -moz-osx- para garantir com que
+  funcione nos navegadores */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  font-size: 63.5%;
+
+  --hue: 240;
+
+  --color-base-white: hsl(0, 0%, 100%);
+  --color-base-gray-100: hsl(0, 0%, 96%);
+  --color-base-gray-300: hsl(var(--hue), 6%, 58%);
+  --color-base-gray-500: hsl(0, 0%, 24%);
+  --color-base-gray-900: hsl(var(--hue), 6%, 13%);
+
+}
+
+html, body, input {
+  font-family: 'Mulish', sans-serif;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color:var(--color-base-white);
+  color: var(--color-base-gray-900)
+}
+
+#app {
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  height: 100vh;
+}
+
+.container {
+  padding: 1.6rem 3.2rem;
+  width: min(112rem, 100%);
+  margin: 0 auto;
+}
+
+main {
+  background-color: var(--color-base-gray-100);
+  
+  /*Comando que defini a barra de rolagem apenas na caixa do "main", travando o rodapé e cabeçalho*/
+  overflow-y: scroll;
+
+  /*Comando que habilita a visualização da barra de rolagem apenas quando encessário utiliza-la*/
+  overflow: auto;
+}
+
+header, nav, nav ul {
+  display: flex;
+  align-items: center;
+  gap: 7.2rem;
+  font-weight: 700;
+}
+
+header form {
+  flex: 1;
+}
+
+nav ul {
+  list-style: none;
+  font-size: 1.8rem;
+  color: var(--color-base-gray-300);
+}
+
+nav li.active {
+  color: var(--color-base-gray-900);
+}
+
+/*Esconde a label do campo de pesquisa da página | Essa label é necessária para leitores de tela*/
+.input-wrapper label {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 1.6rem;
+
+  background-color: var(--color-base-gray-100);
+  border: 0;
+  border-radius: .6rem;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+  opacity: 0.56;
+}
+
+.input-wrapper input::placeholder {
+  color: var(--color-base-gray-500)
+}
+
+.avatar {
+  width: 4.2rem;
+  height: 4.2rem;
+
+  object-fit: cover; /*Comando que cobre toda a área da imagem definida, sem alterar a proporção*/
+
+  border-radius: 50%; /*Comando que arredonda a imagem*/
+}
+
+/* Galeria */
+main h1 {
+  padding-top: 1.6rem;
+  font-size: 2.4rem;
+}
+
+.gallery {
+  margin-top: 3.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+}
+
+.item {
+  background-color: var(--color-base-white);
+  border-radius: .8rem;
+  overflow: hidden; /*Esconde o vazamento da imagem da caixa, que esta com arredondamento*/
+}
+
+.item img {
+  width: 100%;
+  aspect-ratio: 16/9; /*Defini a proporção da imagem*/
+  object-fit: cover; /*Comando que cobre toda a área da imagem definida, sem alterar a proporção*/
+
+  display: block;
+
+  /*
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-delay: 0;
+  transition-timing-function: ease-out;
+  */
+
+  transition: all 200ms ease-out; /*Comando atalho de adicionar transição*/
+}
+
+.item img:hover {
+  filter: hue-rotate(7deg) contrast(101%) saturate(200%);
+  transform: scale(1.1) rotate(-2deg)
+}
+
+.details {
+  padding: 2.2rem;
+  background-color: var(--color-base-white);
+  z-index: 1;
+  position: relative;
+}
+
+.details h2 {
+  font-size: 1.8rem;
+}
+
+.tags {
+  margin-top: 1.2rem;
+}
+
+.tags span {
+  padding: .6rem;
+  background-color: var(--color-base-gray-100);
+  border-radius: .4rem;
+  
+  line-height: 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+
+}
+
+footer p {
+  text-align: center;
+  padding: 1.6rem;
+  font-weight: 600;
+}
+
+header {
+  --startY: -100%; /*Variável de posição do elemento*/
+  animation: move .2s; /* Nome do keyframe | Tempo de animação*/
+}
+
+footer {
+  --startY: 100%; /*Variável de posição do elemento*/
+  animation: move .2s; /* Nome do keyframe | Tempo de animação*/
+}
+
+@keyframes move {
+  from {
+    transform: translateY(var(--startY));
+  }
+}
+
+.item {
+  --delay: .4s; /*Variável de delay que muda de acordo com o "item" no html*/
+
+  /* Nome do keyframe | Tempo de animação | delay para ainício de animação*/
+  /*Comando "backwards" garante com os elementos animadsoa apareçam após o início da animação*/
+  animation: appear .4s var(--delay) backwards; 
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
